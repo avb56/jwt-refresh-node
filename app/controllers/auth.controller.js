@@ -15,17 +15,35 @@ const refreshToken = {
 
 }
 
-exports.signin = (req, res) => {
+const reNew = body => {
 
-  if (req.body.username != 'Admin') {
-    return res.status(404).send({ message: "User Not found." });
+  if (!refreshToken.find(body.refreshToken)) {
+    return [403, "Refresh token is not in database!"];
   }
 
-  if (req.body.password != 'Admin1') {
-    return res.status(401).send({
-      accessToken: null,
-      message: "Invalid Password!",
-    });
+  if (refreshToken.isExpired()) {
+    return [403, "Refresh token was expired. Please make a new signin request"];
+  }
+}
+
+const isUser = body => {
+
+  if (body.username != 'Admin') {
+    return [404, "User Not found."];
+  }
+
+  if (body.password != 'Admin1') {
+    return [401, "Invalid Password!"];
+  }
+}
+
+exports.auth = (req, res) => {
+  const body = req.body;
+  const check = body.refreshToken ? reNew(body) : isUser(body);
+
+  if (check) {
+    const [code, message] = check;
+    return res.status(code).send({ message });
   }
 
   res.status(200).send({
@@ -36,30 +54,4 @@ exports.signin = (req, res) => {
     accessToken: getNewAccessToken(),
     refreshToken: refreshToken.getNew()
   });
-};
-
-exports.refreshToken = (req, res) => {
-
-  if (!req.body.refreshToken) {
-    return res.status(403).json({ message: "Refresh Token is required!" });
-  }
-
-  if (!refreshToken.find(req.body.refreshToken)) {
-    res.status(403).json({ message: "Refresh token is not in database!" });
-    return;
-  }
-
-
-  if (refreshToken.isExpired()) {
-  
-    res.status(403).json({
-      message: "Refresh token was expired. Please make a new signin request",
-    });
-    return;
-  }
-
-  return res.status(200).json({
-    accessToken: getNewAccessToken(),
-    refreshToken: refreshToken.getNew()
-  });
-};
+}
