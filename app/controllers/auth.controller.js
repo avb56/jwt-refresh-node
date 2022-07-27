@@ -1,7 +1,7 @@
 const config = require("../config/auth.config");
 const { v4: uuidv4 } = require('uuid');
 const jwt = require("jsonwebtoken");
-const getNewAccessToken = () => jwt.sign({ id: 0 }, config.secret, { expiresIn: config.jwtExpiration });
+const getNewAccessToken = () => jwt.sign({ user: 'Admin' }, config.secret, { expiresIn: config.jwtExpiration });
 const refreshToken = {
 
 	getNew() {
