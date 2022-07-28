@@ -1,7 +1,7 @@
 const config = require("../config/auth.config");
 const { v4: uuidv4 } = require('uuid');
 const jwt = require("jsonwebtoken");
-const getNewAccessToken = () => jwt.sign({ user: 'Admin' }, config.secret, { expiresIn: config.jwtExpiration });
+const getNewAccessToken = () => jwt.sign({ login: 'Admin' }, config.secret, { expiresIn: config.jwtExpiration });
 const refreshToken = {
 
 	getNew() {
@@ -28,11 +28,11 @@ const reNew = body => {
 
 const isUser = body => {
 
-  if (body.username != 'Admin') {
+  if (body.login != 'mal@ubitek.ru') {
     return [404, "User Not found."];
   }
 
-  if (body.password != 'Admin1') {
+  if (body.password != '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5') {
     return [401, "Invalid Password!"];
   }
 }
@@ -47,10 +47,6 @@ exports.auth = (req, res) => {
   }
 
   res.status(200).send({
-    id: 0,
-    username: 'Admin',
-    email: 'test@none.com',
-    roles: ['ROLE_USER'],
     accessToken: getNewAccessToken(),
     refreshToken: refreshToken.getNew()
   });
