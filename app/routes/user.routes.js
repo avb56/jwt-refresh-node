@@ -14,4 +14,6 @@ module.exports = function(app) {
 
   app.get("/api/data", [authJwt.verifyToken], controller.userBoard);
 
+  app.get("/api/data/dataServicesStatus", [authJwt.verifyToken], controller.dataServicesStatus);
+
 };
