@@ -14,6 +14,12 @@ module.exports = function(app) {
 
   app.get("/api/data", [authJwt.verifyToken], controller.userBoard);
 
-  app.get("/api/data/dataServicesStatus", [authJwt.verifyToken], controller.dataServicesStatus);
+  app.get("/api/data/dataServicesStatus.json", [authJwt.verifyToken], controller.dataServicesStatus);
+
+  app.get("/api/data/services", [authJwt.verifyToken], controller.services);
+
+  app.get("/api/data/services/n/01", controller.service1);
+
+  app.get("/api/data/services/n/02", [authJwt.verifyToken], controller.service2);
 
 };
