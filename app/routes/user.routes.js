@@ -20,6 +20,6 @@ module.exports = function(app) {
 
   app.get("/api/data/services/n/01", controller.service1);
 
-  app.get("/api/data/services/n/02", [authJwt.verifyToken], controller.service2);
+  app.get("/api/data/services/n/02", controller.service2);
 
 };

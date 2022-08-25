@@ -96,6 +96,27 @@ exports.service1 = (req, res) => res.status(200).json(
           "bio": "Roundhouse kicking asses since 1940",
           "password": "noneed"
         }
+      },
+      {
+        "schema": {
+          "title": "Todo",
+          "type": "object",
+          "required": [
+            "title"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "title": "Title",
+              "default": "A new task"
+            },
+            "done": {
+              "type": "boolean",
+              "title": "Done?",
+              "default": false
+            }
+          }
+        }
       }
     ]
   }
