@@ -13,7 +13,7 @@ exports.services = (req, res) => res.status(200).json(
 exports.service1 = (req, res) => res.status(200).json(
   {
     "type": "step",
-    "name": "Сервис 1",
+    "name": "Сервис с шагами",
     "forms": [
       {
         "name": "Шаг 1",
@@ -127,11 +127,11 @@ exports.service1 = (req, res) => res.status(200).json(
 
 exports.service2 = (req, res) => res.status(200).json(
   {
-    "type": "onePage",
-    "name": "Сервис 2",
+    "type": "tab",
+    "name": "Сервис с вкладками",
     "forms": [
       {
-        "name": "Шаг 1",
+        "name": "Вкладка 1",
         "schema": {
           "title": "Todo",
           "type": "object",
@@ -153,7 +153,7 @@ exports.service2 = (req, res) => res.status(200).json(
         }
       },
       {
-        "name": "Шаг 2",
+        "name": "Вкладка 2",
         "schema": {
           "title": "Форма регистрации",
           "description": "",
@@ -239,7 +239,39 @@ exports.service2 = (req, res) => res.status(200).json(
     ]
   }
 )
-  
+
+
+exports.service3 = (req, res) => res.status(200).json(
+  {
+    "type": "once",
+    "name": "Сервис с одной формой",
+    "forms": [
+      {
+        "name": "Похуй",
+        "schema": {
+          "title": "Todo",
+          "type": "object",
+          "required": [
+            "title"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "title": "Title",
+              "default": "A new task"
+            },
+            "done": {
+              "type": "boolean",
+              "title": "Done?",
+              "default": false
+            }
+          }
+        }
+      }
+    ]
+  }
+)
+
 exports.dataServicesStatus = (req, res) => {
   res.status(200).json([
     {

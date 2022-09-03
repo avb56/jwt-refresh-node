@@ -22,4 +22,6 @@ module.exports = function(app) {
 
   app.get("/api/data/services/n/02", controller.service2);
 
+  app.get("/api/data/services/n/03", controller.service3);
+
 };
